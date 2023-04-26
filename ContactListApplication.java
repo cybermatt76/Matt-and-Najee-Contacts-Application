@@ -113,13 +113,17 @@ public class ContactListApplication {
     }
 
     private static void deleteContact(Scanner input) {
-        System.out.println("Please enter the name of the contact to delete:");
-        String contactName = input.next();
+        System.out.println("Please enter the first name of the contact to delete:");
+        String firstName = input.next().trim();
+
+        System.out.println("Please enter the last name of the contact to delete:");
+        String lastName = input.next().trim();
 
         boolean foundContact = false;
 
         for (String contact : contacts) {
-            if (contact.contains(contactName)) {
+            String[] contactInfo = contact.split(" ");
+            if (contactInfo[0].equalsIgnoreCase(firstName) && contactInfo[1].equalsIgnoreCase(lastName)) {
                 contacts.remove(contact);
                 System.out.println("Contact deleted: " + contact);
                 foundContact = true;
@@ -133,6 +137,7 @@ public class ContactListApplication {
 
         saveContactsToFile();
     }
+
 
     private static void readContactsFromFile() {
         try {
