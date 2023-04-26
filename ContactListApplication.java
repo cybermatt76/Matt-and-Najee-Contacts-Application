@@ -123,7 +123,7 @@ public class ContactListApplication {
 
         for (String contact : contacts) {
             String[] contactInfo = contact.split(" ");
-            if (contactInfo[0].equals(firstName) && contactInfo[1].equals(lastName)) {
+            if (contactInfo[0].equalsIgnoreCase(firstName) && contactInfo[1].equalsIgnoreCase(lastName)) {
                 contacts.remove(contact);
                 System.out.println("Contact deleted: " + contact);
                 foundContact = true;
