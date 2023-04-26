@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class ContactListApplication {
@@ -114,25 +115,28 @@ public class ContactListApplication {
 
     private static void deleteContact(Scanner input) {
         System.out.println("Please enter the name of the contact to delete:");
-        String contactName = input.next();
+        String contactName = input.nextLine();
 
+        List<String> contactsToDelete = new ArrayList<>();
         boolean foundContact = false;
 
         for (String contact : contacts) {
             if (contact.contains(contactName)) {
-                contacts.remove(contact);
-                System.out.println("Contact deleted: " + contact);
-                foundContact = true;
-                break;
+                contactsToDelete.add(contact);
+                System.out.println("Contact found: " + contact);
+                foundContact = false;
             }
         }
 
-        if (!foundContact) {
+        if (foundContact) {
+            contacts.removeAll(contactsToDelete);
+            System.out.println("Contacts deleted: " + contactsToDelete);
+            saveContactsToFile();
+        } else {
             System.out.println("Contact not found.");
         }
-
-        saveContactsToFile();
     }
+
 
     private static void readContactsFromFile() {
         try {
